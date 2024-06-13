@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<!-- saved from url=(0094)https://notebook.community/linhbngo/cpsc-4770_6770/14-parallel-sorting-mpi-transposition-merge -->
+<html ⚡="" amp-version="2405300626000" class="i-amphtml-singledoc i-amphtml-standalone"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style amp-runtime="">html{overflow-x:hidden!important}html.i-amphtml-fie{height:100%!important;width:100%!important}html:not([amp4ads]),html:not([amp4ads]) body{height:auto!important}html:not([amp4ads]) body{margin:0!important}body{-webkit-text-size-adjust:100%;-moz-text-size-adjust:100%;-ms-text-size-adjust:100%;text-size-adjust:100%}html.i-amphtml-singledoc.i-amphtml-embedded{-ms-touch-action:pan-y pinch-zoom;touch-action:pan-y pinch-zoom}html.i-amphtml-fie>body,html.i-amphtml-singledoc>body{overflow:visible!important}html.i-amphtml-fie:not(.i-amphtml-inabox)>body,html.i-amphtml-singledoc:not(.i-amphtml-inabox)>body{position:relative!important}html.i-amphtml-ios-embed-legacy>body{overflow-x:hidden!important;overflow-y:auto!important;position:absolute!important}html.i-amphtml-ios-embed{overflow-y:auto!important;position:static}#i-amphtml-wrapper{overflow-x:hidden!important;overflow-y:auto!important;position:absolute!important;top:0!important;left:0!important;right:0!important;bottom:0!important;margin:0!important;display:block!important}html.i-amphtml-ios-embed.i-amphtml-ios-overscroll,html.i-amphtml-ios-embed.i-amphtml-ios-overscroll>#i-amphtml-wrapper{-webkit-overflow-scrolling:touch!important}#i-amphtml-wrapper>body{position:relative!important;border-top:1px solid transparent!important}#i-amphtml-wrapper+body{visibility:visible}#i-amphtml-wrapper+body .i-amphtml-lightbox-element,#i-amphtml-wrapper+body[i-amphtml-lightbox]{visibility:hidden}#i-amphtml-wrapper+body[i-amphtml-lightbox] .i-amphtml-lightbox-element{visibility:visible}#i-amphtml-wrapper.i-amphtml-scroll-disabled,.i-amphtml-scroll-disabled{overflow-x:hidden!important;overflow-y:hidden!important}amp-instagram{padding:54px 0px 0px!important;background-color:#fff}amp-iframe iframe{box-sizing:border-box!important}[amp-access][amp-access-hide]{display:none}[subscriptions-dialog],body:not(.i-amphtml-subs-ready) [subscriptions-action],body:not(.i-amphtml-subs-ready) [subscriptions-section]{display:none!important}amp-experiment,amp-live-list>[update]{display:none}amp-list[resizable-children]>.i-amphtml-loading-container.amp-hidden{display:none!important}amp-list [fetch-error],amp-list[load-more] [load-more-button],amp-list[load-more] [load-more-end],amp-list[load-more] [load-more-failed],amp-list[load-more] [load-more-loading]{display:none}amp-list[diffable] div[role=list]{display:block}amp-story-page,amp-story[standalone]{min-height:1px!important;display:block!important;height:100%!important;margin:0!important;padding:0!important;overflow:hidden!important;width:100%!important}amp-story[standalone]{background-color:#000!important;position:relative!important}amp-story-page{background-color:#757575}amp-story .amp-active>div,amp-story .i-amphtml-loader-background{display:none!important}amp-story-page:not(:first-of-type):not([distance]):not([active]){transform:translateY(1000vh)!important}amp-autocomplete{position:relative!important;display:inline-block!important}amp-autocomplete>input,amp-autocomplete>textarea{padding:0.5rem;border:1px solid rgba(0,0,0,.33)}.i-amphtml-autocomplete-results,amp-autocomplete>input,amp-autocomplete>textarea{font-size:1rem;line-height:1.5rem}[amp-fx^=fly-in]{visibility:hidden}amp-script[nodom],amp-script[sandboxed]{position:fixed!important;top:0!important;width:1px!important;height:1px!important;overflow:hidden!important;visibility:hidden}
+/*# sourceURL=/css/ampdoc.css*/[hidden]{display:none!important}.i-amphtml-element{display:inline-block}.i-amphtml-blurry-placeholder{transition:opacity 0.3s cubic-bezier(0.0,0.0,0.2,1)!important;pointer-events:none}[layout=nodisplay]:not(.i-amphtml-element){display:none!important}.i-amphtml-layout-fixed,[layout=fixed][width][height]:not(.i-amphtml-layout-fixed){display:inline-block;position:relative}.i-amphtml-layout-responsive,[layout=responsive][width][height]:not(.i-amphtml-layout-responsive),[width][height][heights]:not([layout]):not(.i-amphtml-layout-responsive),[width][height][sizes]:not(img):not([layout]):not(.i-amphtml-layout-responsive){display:block;position:relative}.i-amphtml-layout-intrinsic,[layout=intrinsic][width][height]:not(.i-amphtml-layout-intrinsic){display:inline-block;position:relative;max-width:100%}.i-amphtml-layout-intrinsic .i-amphtml-sizer{max-width:100%}.i-amphtml-intrinsic-sizer{max-width:100%;display:block!important}.i-amphtml-layout-container,.i-amphtml-layout-fixed-height,[layout=container],[layout=fixed-height][height]:not(.i-amphtml-layout-fixed-height){display:block;position:relative}.i-amphtml-layout-fill,.i-amphtml-layout-fill.i-amphtml-notbuilt,[layout=fill]:not(.i-amphtml-layout-fill),body noscript>*{display:block;overflow:hidden!important;position:absolute;top:0;left:0;bottom:0;right:0}body noscript>*{position:absolute!important;width:100%;height:100%;z-index:2}body noscript{display:inline!important}.i-amphtml-layout-flex-item,[layout=flex-item]:not(.i-amphtml-layout-flex-item){display:block;position:relative;-ms-flex:1 1 auto;flex:1 1 auto}.i-amphtml-layout-fluid{position:relative}.i-amphtml-layout-size-defined{overflow:hidden!important}.i-amphtml-layout-awaiting-size{position:absolute!important;top:auto!important;bottom:auto!important}i-amphtml-sizer{display:block!important}@supports (aspect-ratio:1/1){i-amphtml-sizer.i-amphtml-disable-ar{display:none!important}}.i-amphtml-blurry-placeholder,.i-amphtml-fill-content{display:block;height:0;max-height:100%;max-width:100%;min-height:100%;min-width:100%;width:0;margin:auto}.i-amphtml-layout-size-defined .i-amphtml-fill-content{position:absolute;top:0;left:0;bottom:0;right:0}.i-amphtml-replaced-content,.i-amphtml-screen-reader{padding:0!important;border:none!important}.i-amphtml-screen-reader{position:fixed!important;top:0px!important;left:0px!important;width:4px!important;height:4px!important;opacity:0!important;overflow:hidden!important;margin:0!important;display:block!important;visibility:visible!important}.i-amphtml-screen-reader~.i-amphtml-screen-reader{left:8px!important}.i-amphtml-screen-reader~.i-amphtml-screen-reader~.i-amphtml-screen-reader{left:12px!important}.i-amphtml-screen-reader~.i-amphtml-screen-reader~.i-amphtml-screen-reader~.i-amphtml-screen-reader{left:16px!important}.i-amphtml-unresolved{position:relative;overflow:hidden!important}.i-amphtml-select-disabled{-webkit-user-select:none!important;-ms-user-select:none!important;user-select:none!important}.i-amphtml-notbuilt,[layout]:not(.i-amphtml-element),[width][height][heights]:not([layout]):not(.i-amphtml-element),[width][height][sizes]:not(img):not([layout]):not(.i-amphtml-element){position:relative;overflow:hidden!important;color:transparent!important}.i-amphtml-notbuilt:not(.i-amphtml-layout-container)>*,[layout]:not([layout=container]):not(.i-amphtml-element)>*,[width][height][heights]:not([layout]):not(.i-amphtml-element)>*,[width][height][sizes]:not([layout]):not(.i-amphtml-element)>*{display:none}amp-img:not(.i-amphtml-element)[i-amphtml-ssr]>img.i-amphtml-fill-content{display:block}.i-amphtml-notbuilt:not(.i-amphtml-layout-container),[layout]:not([layout=container]):not(.i-amphtml-element),[width][height][heights]:not([layout]):not(.i-amphtml-element),[width][height][sizes]:not(img):not([layout]):not(.i-amphtml-element){color:transparent!important;line-height:0!important}.i-amphtml-ghost{visibility:hidden!important}.i-amphtml-element>[placeholder],[layout]:not(.i-amphtml-element)>[placeholder],[width][height][heights]:not([layout]):not(.i-amphtml-element)>[placeholder],[width][height][sizes]:not([layout]):not(.i-amphtml-element)>[placeholder]{display:block;line-height:normal}.i-amphtml-element>[placeholder].amp-hidden,.i-amphtml-element>[placeholder].hidden{visibility:hidden}.i-amphtml-element:not(.amp-notsupported)>[fallback],.i-amphtml-layout-container>[placeholder].amp-hidden,.i-amphtml-layout-container>[placeholder].hidden{display:none}.i-amphtml-layout-size-defined>[fallback],.i-amphtml-layout-size-defined>[placeholder]{position:absolute!important;top:0!important;left:0!important;right:0!important;bottom:0!important;z-index:1}amp-img[i-amphtml-ssr]:not(.i-amphtml-element)>[placeholder]{z-index:auto}.i-amphtml-notbuilt>[placeholder]{display:block!important}.i-amphtml-hidden-by-media-query{display:none!important}.i-amphtml-element-error{background:red!important;color:#fff!important;position:relative!important}.i-amphtml-element-error:before{content:attr(error-message)}i-amp-scroll-container,i-amphtml-scroll-container{position:absolute;top:0;left:0;right:0;bottom:0;display:block}i-amp-scroll-container.amp-active,i-amphtml-scroll-container.amp-active{overflow:auto;-webkit-overflow-scrolling:touch}.i-amphtml-loading-container{display:block!important;pointer-events:none;z-index:1}.i-amphtml-notbuilt>.i-amphtml-loading-container{display:block!important}.i-amphtml-loading-container.amp-hidden{visibility:hidden}.i-amphtml-element>[overflow]{cursor:pointer;position:relative;z-index:2;visibility:hidden;display:initial;line-height:normal}.i-amphtml-layout-size-defined>[overflow]{position:absolute}.i-amphtml-element>[overflow].amp-visible{visibility:visible}template{display:none!important}.amp-border-box,.amp-border-box *,.amp-border-box :after,.amp-border-box :before{box-sizing:border-box}amp-pixel{display:none!important}amp-analytics,amp-auto-ads,amp-story-auto-ads{position:fixed!important;top:0!important;width:1px!important;height:1px!important;overflow:hidden!important;visibility:hidden}amp-story{visibility:hidden!important}html.i-amphtml-fie>amp-analytics{position:initial!important}[visible-when-invalid]:not(.visible),form [submit-error],form [submit-success],form [submitting]{display:none}amp-accordion{display:block!important}@media (min-width:1px){:where(amp-accordion>section)>:first-child{margin:0;background-color:#efefef;padding-right:20px;border:1px solid #dfdfdf}:where(amp-accordion>section)>:last-child{margin:0}}amp-accordion>section{float:none!important}amp-accordion>section>*{float:none!important;display:block!important;overflow:hidden!important;position:relative!important}amp-accordion,amp-accordion>section{margin:0}amp-accordion:not(.i-amphtml-built)>section>:last-child{display:none!important}amp-accordion:not(.i-amphtml-built)>section[expanded]>:last-child{display:block!important}
+/*# sourceURL=/css/ampshared.css*/</style><style amp-extension="amp-list">amp-list.i-amphtml-list-fetch-error [fetch-error],amp-list[load-more] [load-more-button].amp-visible,amp-list[load-more] [load-more-end].amp-visible,amp-list[load-more] [load-more-failed].amp-visible,amp-list[load-more] [load-more-loading].amp-visible{display:block}amp-list[load-more] [load-more-button].i-amphtml-default-ui,amp-list[load-more] [load-more-failed].i-amphtml-default-ui,amp-list[load-more] [load-more-loading].i-amphtml-default-ui{height:80px;padding:12px 0px;box-sizing:border-box}.i-amphtml-list-load-more-button,amp-list[load-more] [load-more-button].i-amphtml-default-ui,amp-list[load-more] [load-more-failed].i-amphtml-default-ui,amp-list[load-more] [load-more-loading].i-amphtml-default-ui{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif;font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.1em;color:#333;text-align:center}amp-list[load-more] [load-more-loading].i-amphtml-default-ui .i-amphtml-list-load-more-spinner{display:inline-block;width:40px;height:40px;margin:8px 0px;background-image:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><defs><linearGradient id="a"><stop stop-color="%23333" stop-opacity=".75"/><stop offset="100%" stop-color="%23333" stop-opacity="0"/></linearGradient></defs><path fill="none" stroke="url(%23a)" stroke-width="1.725" d="M11 4.4A18 18 0 1 0 38 20"/></svg>');animation:amp-list-load-more-spinner 1000ms linear infinite}@keyframes amp-list-load-more-spinner{0%{transform:rotate(0deg)}to{transform:rotate(360deg)}}.i-amphtml-list-load-more-button{border:none;display:inline-block;background-color:rgba(51,51,51,.75);color:#fff;margin:4px 0px;padding:0px 32px;box-sizing:border-box;height:48px;border-radius:24px}[load-more] div[role=list]{overflow-y:hidden}.i-amphtml-list-load-more-button,.i-amphtml-list-load-more-button label,.i-amphtml-list-load-more-icon{cursor:pointer}.i-amphtml-list-load-more-button:hover{background-color:#333}.i-amphtml-list-load-more-button.i-amphtml-list-load-more-button-small{margin:0px;padding:4px 16px;height:32px}.i-amphtml-list-load-more-button label{display:inline-block;vertical-align:middle;line-height:24px}amp-list[load-more] [load-more-failed].i-amphtml-default-ui .i-amphtml-list-load-more-message{line-height:24px}amp-list[load-more] [load-more-failed].i-amphtml-default-ui .i-amphtml-list-load-more-icon{height:24px;width:24px;display:inline-block;vertical-align:middle;background-image:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path fill="%23fff" d="M17.65 6.35A7.96 7.96 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4z"/></svg>')}
+/*# sourceURL=/extensions/amp-list/0.1/amp-list.css*/</style>
+    <title>  | notebook.community </title>
+    
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <meta name="description" content="A gallery of the most interesting jupyter notebooks online.">
+    <script async="" src="./_ notebook.community_files/v0.js.download"></script>
+    <script async="" custom-element="amp-analytics" src="./_ notebook.community_files/amp-analytics-0.1.js.download"></script>
+    <script async="" custom-element="amp-list" src="./_ notebook.community_files/amp-list-0.1.js.download"></script>
+    <script async="" custom-template="amp-mustache" src="./_ notebook.community_files/amp-mustache-0.2.js.download"></script>
+    <link rel="canonical" href="https://notebook.community/linhbngo/cpsc-4770_6770/">
+    <style amp-boilerplate="">
+      body {
+        -webkit-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+        -moz-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+        -ms-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+        animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+      }
+      @-webkit-keyframes -amp-start {
+        from {
+          visibility: hidden;
+        }
+        to {
+          visibility: visible;
+        }
+      }
+      @-moz-keyframes -amp-start {
+        from {
+          visibility: hidden;
+        }
+        to {
+          visibility: visible;
+        }
+      }
+      @-ms-keyframes -amp-start {
+        from {
+          visibility: hidden;
+        }
+        to {
+          visibility: visible;
+        }
+      }
+      @-o-keyframes -amp-start {
+        from {
+          visibility: hidden;
+        }
+        to {
+          visibility: visible;
+        }
+      }
+      @keyframes -amp-start {
+        from {
+          visibility: hidden;
+        }
+        to {
+          visibility: visible;
+        }
+      }
+
+
+    </style>
+    <noscript>
+        <style amp-boilerplate>
+        body {
+          -webkit-animation: none;
+          -moz-animation: none;
+          -ms-animation: none;
+          animation: none;
+        }
+
+
+        </style>
+    </noscript>
+    <style amp-custom="">
+      /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
+      html {
+        font-family: sans-serif;
+        -ms-text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100%;
+      }
+      body {
+        margin: 0;
+      }
+      article,
+      aside,
+      details,
+      figcaption,
+      figure,
+      footer,
+      header,
+      hgroup,
+      main,
+      menu,
+      nav,
+      section,
+      summary {
+        display: block;
+      }
+      audio,
+      canvas,
+      progress,
+      video {
+        display: inline-block;
+        vertical-align: baseline;
+      }
+      audio:not([controls]) {
+        display: none;
+        height: 0;
+      }
+      [hidden],
+      template {
+        display: none;
+      }
+      a {
+        background-color: transparent;
+      }
+      a:active,
+      a:hover {
+        outline: 0;
+      }
+      abbr[title] {
+        border-bottom: 1px dotted;
+      }
+      b,
+      strong {
+        font-weight: 700;
+      }
+      dfn {
+        font-style: italic;
+      }
+      h1 {
+        font-size: 2em;
+        margin: 0.67em 0;
+      }
+      mark {
+        background: #ff0;
+        color: #000;
+      }
+      small {
+        font-size: 80%;
+      }
+      sub,
+      sup {
+        font-size: 75%;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+      }
+      sup {
+        top: -0.5em;
+      }
+      sub {
+        bottom: -0.25em;
+      }
+      img {
+        border: 0;
+      }
+      svg:not(:root) {
+        overflow: hidden;
+      }
+      figure {
+        margin: 1em 40px;
+      }
+      hr {
+        -moz-box-sizing: content-box;
+        box-sizing: content-box;
+        height: 0;
+      }
+      pre {
+        overflow: auto;
+      }
+      code,
+      kbd,
+      pre,
+      samp {
+        font-family: monospace, monospace;
+        font-size: 1em;
+      }
+      button,
+      input,
+      optgroup,
+      select,
+      textarea {
+        color: inherit;
+        font: inherit;
+        margin: 0;
+      }
+      button {
+        overflow: visible;
+      }
+      button,
+      select {
+        text-transform: none;
+      }
+      button,
+      html input[type="button"],
+      input[type="reset"],
+      input[type="submit"] {
+        -webkit-appearance: button;
+        cursor: pointer;
+      }
+      button[disabled],
+      html input[disabled] {
+        cursor: default;
+      }
+      button::-moz-focus-inner,
+      input::-moz-focus-inner {
+        border: 0;
+        padding: 0;
+      }
+      input {
+        line-height: normal;
+      }
+      input[type="checkbox"],
+      input[type="radio"] {
+        box-sizing: border-box;
+        padding: 0;
+      }
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        height: auto;
+      }
+      input[type="search"] {
+        -webkit-appearance: textfield;
+        -moz-box-sizing: content-box;
+        -webkit-box-sizing: content-box;
+        box-sizing: content-box;
+      }
+      input[type="search"]::-webkit-search-cancel-button,
+      input[type="search"]::-webkit-search-decoration {
+        -webkit-appearance: none;
+      }
+      fieldset {
+        border: 1px solid silver;
+        margin: 0 2px;
+        padding: 0.35em 0.625em 0.75em;
+      }
+      legend {
+        border: 0;
+        padding: 0;
+      }
+      textarea {
+        overflow: auto;
+      }
+      optgroup {
+        font-weight: 700;
+      }
+      table {
+        border-collapse: collapse;
+        border-spacing: 0;
+      }
+      td,
+      th {
+        padding: 0;
+      }
+      .container {
+        position: relative;
+        width: 100%;
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 0 20px;
+        box-sizing: border-box;
+      }
+      .column,
+      .columns {
+        width: 100%;
+        float: left;
+        box-sizing: border-box;
+      }
+      @media (min-width: 400px) {
+        .container {
+          width: 85%;
+          padding: 0;
+        }
+      }
+      @media (min-width: 550px) {
+        .container {
+          width: 80%;
+        }
+        .column,
+        .columns {
+          margin-left: 4%;
+        }
+        .column:first-child,
+        .columns:first-child {
+          margin-left: 0;
+        }
+        .one.column,
+        .one.columns {
+          width: 4.66666666667%;
+        }
+        .two.columns {
+          width: 13.3333333333%;
+        }
+        .three.columns {
+          width: 22%;
+        }
+        .four.columns {
+          width: 30.6666666667%;
+        }
+        .five.columns {
+          width: 39.3333333333%;
+        }
+        .six.columns {
+          width: 48%;
+        }
+        .seven.columns {
+          width: 56.6666666667%;
+        }
+        .eight.columns {
+          width: 65.3333333333%;
+        }
+        .nine.columns {
+          width: 74%;
+        }
+        .ten.columns {
+          width: 82.6666666667%;
+        }
+        .eleven.columns {
+          width: 91.3333333333%;
+        }
+        .twelve.columns {
+          width: 100%;
+          margin-left: 0;
+        }
+        .one-third.column {
+          width: 30.6666666667%;
+        }
+        .two-thirds.column {
+          width: 65.3333333333%;
+        }
+        .one-half.column {
+          width: 48%;
+        }
+        .offset-by-one.column,
+        .offset-by-one.columns {
+          margin-left: 8.66666666667%;
+        }
+        .offset-by-two.column,
+        .offset-by-two.columns {
+          margin-left: 17.3333333333%;
+        }
+        .offset-by-three.column,
+        .offset-by-three.columns {
+          margin-left: 26%;
+        }
+        .offset-by-four.column,
+        .offset-by-four.columns {
+          margin-left: 34.6666666667%;
+        }
+        .offset-by-five.column,
+        .offset-by-five.columns {
+          margin-left: 43.3333333333%;
+        }
+        .offset-by-six.column,
+        .offset-by-six.columns {
+          margin-left: 52%;
+        }
+        .offset-by-seven.column,
+        .offset-by-seven.columns {
+          margin-left: 60.6666666667%;
+        }
+        .offset-by-eight.column,
+        .offset-by-eight.columns {
+          margin-left: 69.3333333333%;
+        }
+        .offset-by-nine.column,
+        .offset-by-nine.columns {
+          margin-left: 78%;
+        }
+        .offset-by-ten.column,
+        .offset-by-ten.columns {
+          margin-left: 86.6666666667%;
+        }
+        .offset-by-eleven.column,
+        .offset-by-eleven.columns {
+          margin-left: 95.3333333333%;
+        }
+        .offset-by-one-third.column,
+        .offset-by-one-third.columns {
+          margin-left: 34.6666666667%;
+        }
+        .offset-by-two-thirds.column,
+        .offset-by-two-thirds.columns {
+          margin-left: 69.3333333333%;
+        }
+        .offset-by-one-half.column,
+        .offset-by-one-half.columns {
+          margin-left: 52%;
+        }
+      }
+      html {
+        font-size: 62.5%;
+      }
+      body {
+        font-size: 1.5em;
+        line-height: 1.6;
+        font-weight: 400;
+        font-family: Raleway, HelveticaNeue, "Helvetica Neue", Helvetica, Arial,
+          sans-serif;
+        color: #222;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin-top: 0;
+        margin-bottom: 2rem;
+        font-weight: 300;
+      }
+      h1 {
+        font-size: 4rem;
+        line-height: 1.2;
+        letter-spacing: -0.1rem;
+      }
+      h2 {
+        font-size: 3.6rem;
+        line-height: 1.25;
+        letter-spacing: -0.1rem;
+      }
+      h3 {
+        font-size: 3rem;
+        line-height: 1.3;
+        letter-spacing: -0.1rem;
+      }
+      h4 {
+        font-size: 2.4rem;
+        line-height: 1.35;
+        letter-spacing: -0.08rem;
+      }
+      h5 {
+        font-size: 1.8rem;
+        line-height: 1.5;
+        letter-spacing: -0.05rem;
+      }
+      h6 {
+        font-size: 1.5rem;
+        line-height: 1.6;
+        letter-spacing: 0;
+      }
+      @media (min-width: 550px) {
+        h1 {
+          font-size: 5rem;
+        }
+        h2 {
+          font-size: 4.2rem;
+        }
+        h3 {
+          font-size: 3.6rem;
+        }
+        h4 {
+          font-size: 3rem;
+        }
+        h5 {
+          font-size: 2.4rem;
+        }
+        h6 {
+          font-size: 1.5rem;
+        }
+      }
+      p {
+        margin-top: 0;
+      }
+      a {
+        color: #1eaedb;
+      }
+      a:hover {
+        color: #0fa0ce;
+      }
+      .button,
+      button,
+      input[type="button"],
+      input[type="reset"],
+      input[type="submit"] {
+        display: inline-block;
+        height: 38px;
+        padding: 0 30px;
+        color: #555;
+        text-align: center;
+        font-size: 11px;
+        font-weight: 600;
+        line-height: 38px;
+        letter-spacing: 0.1rem;
+        text-transform: uppercase;
+        text-decoration: none;
+        white-space: nowrap;
+        background-color: transparent;
+        border-radius: 4px;
+        border: 1px solid #bbb;
+        cursor: pointer;
+        box-sizing: border-box;
+      }
+      .button:focus,
+      .button:hover,
+      button:focus,
+      button:hover,
+      input[type="button"]:focus,
+      input[type="button"]:hover,
+      input[type="reset"]:focus,
+      input[type="reset"]:hover,
+      input[type="submit"]:focus,
+      input[type="submit"]:hover {
+        color: #333;
+        border-color: #888;
+        outline: 0;
+      }
+      .button.button-primary,
+      button.button-primary,
+      input[type="button"].button-primary,
+      input[type="reset"].button-primary,
+      input[type="submit"].button-primary {
+        color: #fff;
+        background-color: #33c3f0;
+        border-color: #33c3f0;
+      }
+      .button.button-primary:focus,
+      .button.button-primary:hover,
+      button.button-primary:focus,
+      button.button-primary:hover,
+      input[type="button"].button-primary:focus,
+      input[type="button"].button-primary:hover,
+      input[type="reset"].button-primary:focus,
+      input[type="reset"].button-primary:hover,
+      input[type="submit"].button-primary:focus,
+      input[type="submit"].button-primary:hover {
+        color: #fff;
+        background-color: #1eaedb;
+        border-color: #1eaedb;
+      }
+      input[type="email"],
+      input[type="number"],
+      input[type="password"],
+      input[type="search"],
+      input[type="tel"],
+      input[type="text"],
+      input[type="url"],
+      select,
+      textarea {
+        height: 38px;
+        padding: 6px 10px;
+        background-color: #fff;
+        border: 1px solid #d1d1d1;
+        border-radius: 4px;
+        box-shadow: none;
+        box-sizing: border-box;
+      }
+      input[type="email"],
+      input[type="number"],
+      input[type="password"],
+      input[type="search"],
+      input[type="tel"],
+      input[type="text"],
+      input[type="url"],
+      textarea {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+      }
+      textarea {
+        min-height: 65px;
+        padding-top: 6px;
+        padding-bottom: 6px;
+      }
+      input[type="email"]:focus,
+      input[type="number"]:focus,
+      input[type="password"]:focus,
+      input[type="search"]:focus,
+      input[type="tel"]:focus,
+      input[type="text"]:focus,
+      input[type="url"]:focus,
+      select:focus,
+      textarea:focus {
+        border: 1px solid #33c3f0;
+        outline: 0;
+      }
+      label,
+      legend {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+      }
+      fieldset {
+        padding: 0;
+        border-width: 0;
+      }
+      input[type="checkbox"],
+      input[type="radio"] {
+        display: inline;
+      }
+      label > .label-body {
+        display: inline-block;
+        margin-left: 0.5rem;
+        font-weight: 400;
+      }
+      ul {
+        list-style: circle inside;
+      }
+      ol {
+        list-style: decimal inside;
+      }
+      ol,
+      ul {
+        padding-left: 0;
+        margin-top: 0;
+      }
+      ol ol,
+      ol ul,
+      ul ol,
+      ul ul {
+        margin: 1.5rem 0 1.5rem 3rem;
+        font-size: 90%;
+      }
+      li {
+        margin-bottom: 1rem;
+      }
+      code {
+        padding: 0.2rem 0.5rem;
+        margin: 0 0.2rem;
+        font-size: 90%;
+        white-space: nowrap;
+        background: #f1f1f1;
+        border: 1px solid #e1e1e1;
+        border-radius: 4px;
+      }
+      pre > code {
+        display: block;
+        padding: 1rem 1.5rem;
+      }
+      td,
+      th {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #e1e1e1;
+      }
+      td:first-child,
+      th:first-child {
+        padding-left: 0;
+      }
+      td:last-child,
+      th:last-child {
+        padding-right: 0;
+      }
+      .button,
+      button {
+        margin-bottom: 1rem;
+      }
+      fieldset,
+      input,
+      select,
+      textarea {
+        margin-bottom: 1.5rem;
+      }
+      blockquote,
+      dl,
+      figure,
+      form,
+      ol,
+      p,
+      pre,
+      table,
+      ul {
+        margin-bottom: 2.5rem;
+      }
+      .u-full-width {
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .u-max-full-width {
+        max-width: 100%;
+        box-sizing: border-box;
+      }
+      .u-pull-right {
+        float: right;
+      }
+      .u-pull-left {
+        float: left;
+      }
+      hr {
+        margin-top: 3rem;
+        margin-bottom: 3.5rem;
+        border-width: 0;
+        border-top: 1px solid #e1e1e1;
+      }
+      .container:after,
+      .row:after,
+      .u-cf {
+        content: "";
+        display: table;
+        clear: both;
+      }
+
+
+    </style>
+
+<script async="" custom-element="amp-auto-lightbox" data-script="amp-auto-lightbox" i-amphtml-inserted="" crossorigin="anonymous" src="./_ notebook.community_files/amp-auto-lightbox-0.1.js.download"></script></head>
+<body class="amp-dark-mode amp-mode-touch amp-mode-mouse amp-mode-keyboard-active" style="opacity: 1; visibility: visible; animation: auto ease 0s 1 normal none running none;">
+  <amp-analytics config="https://www.googletagmanager.com/amp.json?id=GTM-WJLJCMXQ&amp;gtm.url=SOURCE_URL" data-credentials="include" class="i-amphtml-element i-amphtml-layout-fixed i-amphtml-layout-size-defined i-amphtml-built i-amphtml-layout" i-amphtml-layout="fixed" aria-hidden="true" hidden="" style="width: 1px; height: 1px;"></amp-analytics>
+
+<div class="container">
+    <div class="row">
+        <div class="eight columns" style="margin-top: 2%;">
+            <p><a style="text-decoration: none; color:#000;" href="https://notebook.community/">notebook.community</a></p>
+        </div>
+        
+<div class="four columns" style="margin-top: 2%;">
+    <p align="right">
+        <a rel="nofollow" id="cta-button" class="button button-primary" target="_blank" href="https://deepnote.com/launch?url=https://github.com/linhbngo/cpsc-4770_6770/blob/master/14-parallel-sorting-mpi-transposition-merge.ipynb">Edit and run</a>
+    </p>
+</div>
+
+
+    </div>
+    
+<div class="row">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Parallelizing-Common-Sorting-Algorithm:-Tranposition-and-Merge-Sort"><center>Parallelizing Common Sorting Algorithm: Tranposition and Merge Sort</center><a class="anchor-link" href="https://notebook.community/linhbngo/cpsc-4770_6770/14-parallel-sorting-mpi-transposition-merge#Parallelizing-Common-Sorting-Algorithm:-Tranposition-and-Merge-Sort"></a></h2><h3 id="-Linh-B.-Ngo-"><center> Linh B. Ngo </center><a class="anchor-link" href="https://notebook.community/linhbngo/cpsc-4770_6770/14-parallel-sorting-mpi-transposition-merge#-Linh-B.-Ngo-"></a></h3><h3 id="-CPSC-3620-"><center> CPSC 3620 </center><a class="anchor-link" href="https://notebook.community/linhbngo/cpsc-4770_6770/14-parallel-sorting-mpi-transposition-merge#-CPSC-3620-"></a></h3>
+</div>
+</div>
+</div>
+</div><div class="row">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="-Buble-Sort:-Transposition-Sort-"><center> Buble Sort: Transposition Sort </center><a class="anchor-link" href="https://notebook.community/linhbngo/cpsc-4770_6770/14-parallel-sorting-mpi-transposition-merge#-Buble-Sort:-Transposition-Sort-"></a></h4>
+</div>
+</div>
+</div>
+</div><div class="row">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><p>Largest number moved to the end of the list by a series of compares and exchanges, strting at the opposite end</p>
+</li>
+<li><p>Actions repeated with subsequent numbers, stopping just before that previously positioned number</p>
+</li>
+<li><p>In this way, lage numbers move ("bubble") towrard one end</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div><div class="row">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<center> <amp-img height="300" layout="responsive" src="pictures/14/bubble.png" width="700" class="i-amphtml-element i-amphtml-layout-responsive i-amphtml-layout-size-defined i-amphtml-built i-amphtml-layout amp-notsupported" i-amphtml-layout="responsive"><i-amphtml-sizer slot="i-amphtml-svc" style="padding-top: 42.8571%;"></i-amphtml-sizer><img decoding="async" src="./_ notebook.community_files/bubble.png" class="i-amphtml-fill-content i-amphtml-replaced-content i-amphtml-ghost"></amp-img>
+<sub>Wilkinson, Barry, and Michael Allen. Parallel programming. 2nd Ed. 2003. </sub>
+</center>
+</div>
+</div>
+</div>
+</div><div class="row">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Transposition Sort is a variation of Buble Sort</li>
+<li>Operates in two alternating phases, <em>even</em> and <em>odd</em></li>
+<li>Even phase: Even-numbered processes exchange numbers with their right neighbor</li>
+<li>Odd phase: Odd-numbered processes exchange numbers with their right neighbor</li>
+</ul>
+</div>
+</div>
+</div>
+</div><div class="row">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<center> <amp-img height="300" layout="responsive" src="pictures/14/transposition.png" width="700" class="i-amphtml-element i-amphtml-layout-responsive i-amphtml-layout-size-defined i-amphtml-built i-amphtml-layout amp-notsupported" i-amphtml-layout="responsive"><i-amphtml-sizer slot="i-amphtml-svc" style="padding-top: 42.8571%;"></i-amphtml-sizer><img decoding="async" src="./_ notebook.community_files/transposition.png" class="i-amphtml-fill-content i-amphtml-replaced-content i-amphtml-ghost"></amp-img>
+<sub>Wilkinson, Barry, and Michael Allen. Parallel programming. 2nd Ed. 2003. </sub>
+</center>
+</div>
+</div>
+</div>
+</div><div class="row">
+<div class="cell border-box-sizing code_cell rendered">
+<pre><code>
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="n">writefile</span> <span class="n">codes</span><span class="o">/</span><span class="n">mpi4py</span><span class="o">/</span><span class="n">transposition</span><span class="o">.</span><span class="n">py</span>
+<span class="c1">#!/usr/bin/env python</span>
+<span class="c1"># transposition.py</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">mpi4py</span> <span class="kn">import</span> <span class="n">MPI</span>
+<span class="n">comm</span> <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">COMM_WORLD</span>
+<span class="n">rank</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">Get_rank</span><span class="p">();</span> <span class="n">size</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">Get_size</span><span class="p">();</span> <span class="n">status</span> <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">Status</span><span class="p">();</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">16</span>
+<span class="n">unsorted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">"int"</span><span class="p">)</span>
+<span class="n">final_sorted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">"int"</span><span class="p">)</span>
+<span class="n">local_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">N</span> <span class="o">/</span> <span class="n">size</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">"int"</span><span class="p">)</span>
+<span class="n">local_tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">N</span> <span class="o">/</span> <span class="n">size</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">"int"</span><span class="p">)</span>
+<span class="n">local_remain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="n">N</span> <span class="o">/</span> <span class="n">size</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">"int"</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">unsorted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">high</span><span class="o">=</span><span class="n">N</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">)</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="n">unsorted</span><span class="p">)</span>
+<span class="n">comm</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">unsorted</span><span class="p">,</span> <span class="n">local_array</span><span class="p">,</span> <span class="n">root</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="n">local_array</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s2">"Step: "</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">step</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">rank</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">des</span> <span class="o">=</span> <span class="n">rank</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">des</span> <span class="o">=</span> <span class="n">rank</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">rank</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">des</span> <span class="o">=</span> <span class="n">rank</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">des</span> <span class="o">=</span> <span class="n">rank</span> <span class="o">+</span> <span class="mi">1</span>
+            
+    <span class="k">if</span> <span class="p">(</span><span class="n">des</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">des</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">):</span>
+        <span class="nb">print</span> <span class="p">(</span><span class="s2">"My rank is "</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="s2">" and my des is "</span><span class="p">,</span> <span class="n">des</span><span class="p">)</span>
+        <span class="n">comm</span><span class="o">.</span><span class="n">Send</span><span class="p">(</span><span class="n">local_array</span><span class="p">,</span> <span class="n">dest</span> <span class="o">=</span> <span class="n">des</span><span class="p">,</span> <span class="n">tag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">comm</span><span class="o">.</span><span class="n">Recv</span><span class="p">(</span><span class="n">local_tmp</span><span class="p">,</span> <span class="n">source</span> <span class="o">=</span> <span class="n">des</span><span class="p">)</span>    
+        <span class="nb">print</span> <span class="p">(</span><span class="s2">"Rank "</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="s2">" "</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="s2">": Initial local_array: "</span><span class="p">,</span> <span class="n">local_array</span><span class="p">)</span>
+        <span class="nb">print</span> <span class="p">(</span><span class="s2">"Rank "</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="s2">" "</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="s2">": Received local_tmp:"</span><span class="p">,</span> <span class="n">local_tmp</span><span class="p">)</span>
+        <span class="n">local_remain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">local_array</span><span class="p">,</span> <span class="n">local_tmp</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">local_remain</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="n">rank</span> <span class="o">&lt;</span> <span class="n">des</span><span class="p">):</span>
+            <span class="n">local_array</span> <span class="o">=</span> <span class="n">local_remain</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="nb">int</span><span class="p">(</span><span class="n">N</span><span class="o">/</span><span class="n">size</span><span class="p">)]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">local_array</span> <span class="o">=</span> <span class="n">local_remain</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">N</span><span class="o">/</span><span class="n">size</span><span class="p">):</span><span class="mi">2</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="n">N</span><span class="o">/</span><span class="n">size</span><span class="p">)]</span>
+        <span class="nb">print</span> <span class="p">(</span><span class="s2">"Rank "</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="s2">" "</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="s2">": Retained portions: "</span><span class="p">,</span> <span class="n">local_array</span><span class="p">)</span>
+<span class="n">comm</span><span class="o">.</span><span class="n">Gather</span><span class="p">(</span><span class="n">local_array</span><span class="p">,</span> <span class="n">final_sorted</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">rank</span>  <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="n">final_sorted</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</code></pre><pre><code>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Overwriting codes/mpi4py/transposition.py
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</code></pre>
+</div>
+</div><div class="row">
+<div class="cell border-box-sizing code_cell rendered">
+<pre><code>
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="err">!</span><span class="n">chmod</span> <span class="mi">755</span> <span class="n">codes</span><span class="o">/</span><span class="n">mpi4py</span><span class="o">/</span><span class="n">transposition</span><span class="o">.</span><span class="n">py</span>
+<span class="err">!</span><span class="n">module</span> <span class="n">load</span> <span class="n">gcc</span><span class="o">/</span><span class="mf">5.3.0</span> <span class="n">openmpi</span><span class="o">/</span><span class="mf">1.10.3</span><span class="p">;</span> <span class="n">mpirun</span> <span class="o">-</span><span class="n">np</span> <span class="mi">4</span> <span class="n">codes</span><span class="o">/</span><span class="n">mpi4py</span><span class="o">/</span><span class="n">transposition</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</code></pre><pre><code>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>--------------------------------------------------------------------------
+The library attempted to open the following supporting CUDA libraries, 
+but each of them failed.  CUDA-aware support is disabled.
+libcuda.so.1: cannot open shared object file: No such file or directory
+libcuda.dylib: cannot open shared object file: No such file or directory
+/usr/lib64/libcuda.so.1: cannot open shared object file: No such file or directory
+/usr/lib64/libcuda.dylib: cannot open shared object file: No such file or directory
+If you are not interested in CUDA-aware support, then run with 
+--mca mpi_cuda_support 0 to suppress this message.  If you are interested
+in CUDA-aware support, then try setting LD_LIBRARY_PATH to the location
+of libcuda.so.1 to get passed this issue.
+--------------------------------------------------------------------------
+[ 9  9  9  2  2  1 15  2  0  5  1 14 14  2  5  6]
+Step:  0
+My rank is  0  and my des is  1
+Rank  0   0 : Initial local_array:  [2 9 9 9]
+Rank  0   0 : Received local_tmp: [ 1  2  2 15]
+Rank  0   0 : Retained portions:  [1 2 2 2]
+Step:  1
+Step:  2
+My rank is  0  and my des is  1
+Step:  0
+My rank is  1  and my des is  0
+Rank  1   0 : Initial local_array:  [ 1  2  2 15]
+Rank  1   0 : Received local_tmp: [2 9 9 9]
+Rank  1   0 : Retained portions:  [ 9  9  9 15]
+Step:  1
+My rank is  1  and my des is  2
+Rank  1   1 : Initial local_array:  [ 9  9  9 15]
+Rank  1   1 : Received local_tmp: [0 1 2 5]
+Rank  1   1 : Retained portions:  [0 1 2 5]
+Step:  2
+My rank is  1  and my des is  0
+Step:  0
+My rank is  2  and my des is  3
+Rank  2   0 : Initial local_array:  [ 0  1  5 14]
+Rank  2   0 : Received local_tmp: [ 2  5  6 14]
+Rank  2   0 : Retained portions:  [0 1 2 5]
+Step:  1
+My rank is  2  and my des is  1
+Rank  2   1 : Initial local_array:  [0 1 2 5]
+Rank  2   1 : Received local_tmp: [ 9  9  9 15]
+Rank  2   1 : Retained portions:  [ 9  9  9 15]
+Step:  2
+My rank is  2  and my des is  3
+Rank  2   2 : Initial local_array:  [ 9  9  9 15]
+Rank  2   2 : Received local_tmp: [ 5  6 14 14]
+Step:  0
+My rank is  3  and my des is  2
+Rank  3   0 : Initial local_array:  [ 2  5  6 14]
+Rank  3   0 : Received local_tmp: [ 0  1  5 14]
+Rank  3   0 : Retained portions:  [ 5  6 14 14]
+Step:  1
+Step:  2
+My rank is  3  and my des is  2
+Rank  3   2 : Initial local_array:  [ 5  6 14 14]
+Rank  3   2 : Received local_tmp: [ 9  9  9 15]
+Rank  3   2 : Retained portions:  [ 9 14 14 15]
+Step:  3
+Rank  0   2 : Initial local_array:  [1 2 2 2]
+Rank  0   2 : Received local_tmp: [0 1 2 5]
+Rank  0   2 : Retained portions:  [0 1 1 2]
+Step:  3
+[ 0  1  1  2  2  2  2  5  5  6  9  9  9 14 14 15]
+Rank  1   2 : Initial local_array:  [0 1 2 5]
+Rank  1   2 : Received local_tmp: [1 2 2 2]
+Rank  1   2 : Retained portions:  [2 2 2 5]
+Step:  3
+My rank is  1  and my des is  2
+Rank  1   3 : Initial local_array:  [2 2 2 5]
+Rank  1   3 : Received local_tmp: [5 6 9 9]
+Rank  1   3 : Retained portions:  [2 2 2 5]
+Rank  2   2 : Retained portions:  [5 6 9 9]
+Step:  3
+My rank is  2  and my des is  1
+Rank  2   3 : Initial local_array:  [5 6 9 9]
+Rank  2   3 : Received local_tmp: [2 2 2 5]
+Rank  2   3 : Retained portions:  [5 6 9 9]
+[node0305.palmetto.clemson.edu:22617] 3 more processes have sent help message help-mpi-common-cuda.txt / dlopen failed
+[node0305.palmetto.clemson.edu:22617] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</code></pre>
+</div>
+</div><div class="row">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="-Merge-Sort-"><center> Merge Sort </center><a class="anchor-link" href="https://notebook.community/linhbngo/cpsc-4770_6770/14-parallel-sorting-mpi-transposition-merge#-Merge-Sort-"></a></h4>
+</div>
+</div>
+</div>
+</div><div class="row">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><p>A classical sequential sorting algorithm using divide-and-conquer approach</p>
+</li>
+<li><p>Unsorted list first divided into half. Each half is again divided into two. Continued until individual numbers obtained.</p>
+</li>
+<li><p>Then pairs of numbers combined (merged) into sorted list of two numbers.</p>
+</li>
+<li><p>Pairs of these lists of four numbers are merged into sorted lists of eight numbers.</p>
+</li>
+<li><p>This is continued until the one fully sorted list is obtained.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div><div class="row">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<center> <amp-img height="300" layout="responsive" src="pictures/14/merge.png" width="700" class="i-amphtml-element i-amphtml-layout-responsive i-amphtml-layout-size-defined i-amphtml-built i-amphtml-layout amp-notsupported" i-amphtml-layout="responsive"><i-amphtml-sizer slot="i-amphtml-svc" style="padding-top: 42.8571%;"></i-amphtml-sizer><img decoding="async" src="./_ notebook.community_files/merge.png" class="i-amphtml-fill-content i-amphtml-replaced-content i-amphtml-ghost"></amp-img>
+<sub>Wilkinson, Barry, and Michael Allen. Parallel programming. 2nd Ed. 2003. </sub>
+</center>
+</div>
+</div>
+</div>
+</div><div class="row">
+<div class="cell border-box-sizing code_cell rendered">
+<pre><code>
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="n">writefile</span> <span class="n">codes</span><span class="o">/</span><span class="n">mpi4py</span><span class="o">/</span><span class="n">merge</span><span class="o">.</span><span class="n">py</span>
+<span class="c1">#!/usr/bin/env python</span>
+<span class="c1"># merge.py</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">mpi4py</span> <span class="kn">import</span> <span class="n">MPI</span>
+<span class="n">comm</span> <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">COMM_WORLD</span>
+<span class="n">rank</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">Get_rank</span><span class="p">();</span> <span class="n">size</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">Get_size</span><span class="p">();</span> <span class="n">status</span> <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">Status</span><span class="p">();</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">16</span>
+<span class="n">unsorted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">"int"</span><span class="p">)</span>
+<span class="n">final_sorted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">"int"</span><span class="p">)</span>
+<span class="n">local_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">N</span> <span class="o">/</span> <span class="n">size</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">"int"</span><span class="p">)</span>
+<span class="n">local_tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">N</span> <span class="o">/</span> <span class="n">size</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">"int"</span><span class="p">)</span>
+<span class="n">local_remain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="n">N</span> <span class="o">/</span> <span class="n">size</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">"int"</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">unsorted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">high</span><span class="o">=</span><span class="n">N</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">)</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="n">unsorted</span><span class="p">)</span>
+<span class="n">comm</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">unsorted</span><span class="p">,</span> <span class="n">local_array</span><span class="p">,</span> <span class="n">root</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="n">local_array</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+
+<span class="n">step</span> <span class="o">=</span> <span class="n">size</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">"Rank: "</span><span class="p">,</span> <span class="n">rank</span><span class="p">)</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">step</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">rank</span> <span class="o">&gt;=</span> <span class="n">step</span> <span class="ow">and</span> <span class="n">rank</span> <span class="o">&lt;</span> <span class="n">step</span> <span class="o">*</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="n">comm</span><span class="o">.</span><span class="n">Send</span><span class="p">(</span><span class="n">local_array</span><span class="p">,</span> <span class="n">rank</span> <span class="o">-</span> <span class="n">step</span><span class="p">,</span> <span class="n">tag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="p">(</span><span class="n">rank</span> <span class="o">&lt;</span> <span class="n">step</span><span class="p">):</span>
+        <span class="n">local_tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">local_array</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">"int"</span><span class="p">)</span>
+        <span class="n">local_remain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">local_array</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">"int"</span><span class="p">)</span>
+        <span class="n">comm</span><span class="o">.</span><span class="n">Recv</span><span class="p">(</span><span class="n">local_tmp</span><span class="p">,</span> <span class="n">rank</span> <span class="o">+</span> <span class="n">step</span><span class="p">,</span> <span class="n">tag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#local_array counter</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># local_tmp counter</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">local_array</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="n">local_array</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+                <span class="n">local_remain</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">local_tmp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+                <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="n">j</span> <span class="o">&gt;=</span> <span class="n">local_array</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+                <span class="n">local_remain</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">local_array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="n">local_array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">local_tmp</span><span class="p">[</span><span class="n">j</span><span class="p">]):</span>
+                <span class="n">local_remain</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">local_tmp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+                <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">local_remain</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">local_array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>        
+        <span class="nb">print</span> <span class="p">(</span><span class="s2">"Step: "</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
+        <span class="nb">print</span> <span class="p">(</span><span class="s2">"local array: "</span><span class="p">,</span> <span class="n">local_array</span><span class="p">)</span>
+        <span class="nb">print</span> <span class="p">(</span><span class="s2">"local tmp: "</span><span class="p">,</span> <span class="n">local_tmp</span><span class="p">)</span>
+        <span class="nb">print</span> <span class="p">(</span><span class="s2">"local remain: "</span><span class="p">,</span> <span class="n">local_remain</span><span class="p">)</span>
+        <span class="n">local_array</span> <span class="o">=</span> <span class="n">local_remain</span>
+    <span class="n">step</span> <span class="o">=</span> <span class="n">step</span> <span class="o">/</span> <span class="mi">2</span>
+    
+<span class="k">if</span> <span class="p">(</span><span class="n">rank</span>  <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="n">local_array</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</code></pre><pre><code>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Writing codes/mpi4py/merge.py
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</code></pre>
+</div>
+</div><div class="row">
+<div class="cell border-box-sizing code_cell rendered">
+<pre><code>
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="err">!</span><span class="n">chmod</span> <span class="mi">755</span> <span class="n">codes</span><span class="o">/</span><span class="n">mpi4py</span><span class="o">/</span><span class="n">merge</span><span class="o">.</span><span class="n">py</span>
+<span class="err">!</span><span class="n">module</span> <span class="n">load</span> <span class="n">gcc</span><span class="o">/</span><span class="mf">5.3.0</span> <span class="n">openmpi</span><span class="o">/</span><span class="mf">1.10.3</span><span class="p">;</span> <span class="n">mpirun</span> <span class="o">-</span><span class="n">np</span> <span class="mi">4</span> <span class="n">codes</span><span class="o">/</span><span class="n">mpi4py</span><span class="o">/</span><span class="n">merge</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</code></pre><pre><code>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[ 3 14  8  8  8  2  8 10 14  5  3 10  7 11  7 10]
+Rank:  0
+Step:  2.0
+local array:  [ 3  8  8 14]
+Rank:  1
+Step:  2.0
+Rank:  2
+Rank:  3
+local tmp:  [ 3  5 10 14]
+local remain:  [ 3  3  5  8  8 10 14 14]
+Step:  1.0
+local array:  [ 3  3  5  8  8 10 14 14]
+local tmp:  [ 2  7  7  8  8 10 10 11]
+local array:  [ 2  8  8 10]
+local tmp:  [ 7  7 10 11]
+local remain:  [ 2  7  7  8  8 10 10 11]
+local remain:  [ 2  3  3  5  7  7  8  8  8  8 10 10 10 11 14 14]
+[ 2  3  3  5  7  7  8  8  8  8 10 10 10 11 14 14]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</code></pre>
+</div>
+</div><div class="row">
+<div class="cell border-box-sizing code_cell rendered">
+<pre><code>
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</code></pre>
+</div>
+</div>
+
+
+
+
+    
+<div class="footer">
+    <div class="row">
+        <div class="one-half column" style="margin-bottom: 5%">
+            <hr>
+            <p>
+                Content source: <a style="text-decoration: none" href="https://github.com/linhbngo/cpsc-4770_6770">linhbngo/cpsc-4770_6770</a>
+            </p>
+            <p>Similar notebooks:</p>
+            <ul>
+                
+                <li><a href="https://notebook.community/linhbngo/cpsc-4770_6770/14-parallel-sorting-mpi-transposition-merge">
+                    <span>14-parallel-sorting-mpi-transposition-merge</span>
+                </a></li>
+                
+                <li><a href="https://notebook.community/tdierks/project-euler/twenty-four">
+                    <span>twenty-four</span>
+                </a></li>
+                
+                <li><a href="https://notebook.community/linhbngo/cpsc-4770_6770/08-synchrounous-computing">
+                    <span>08-synchrounous-computing</span>
+                </a></li>
+                
+                <li><a href="https://notebook.community/ledeprogram/algorithms/class1/homework/benzaquen_mercy_1_1">
+                    <span>benzaquen_mercy_1_1</span>
+                </a></li>
+                
+                <li><a href="https://notebook.community/ledeprogram/algorithms/class3/donow/Skinner_Barnaby_Donow_3">
+                    <span>Skinner_Barnaby_Donow_3</span>
+                </a></li>
+                
+                <li><a href="https://notebook.community/linhbngo/cpsc-4770_6770/15-parallel-sorting-mpi-quick-sort">
+                    <span>15-parallel-sorting-mpi-quick-sort</span>
+                </a></li>
+                
+                <li><a href="https://notebook.community/vadim-ivlev/STUDY/coding/.ipynb_checkpoints/bucket%20sort-checkpoint">
+                    <span>bucket sort-checkpoint</span>
+                </a></li>
+                
+                <li><a href="https://notebook.community/midnighteuler/projecteuler/src/Prob44">
+                    <span>Prob44</span>
+                </a></li>
+                
+                <li><a href="https://notebook.community/danui/project-euler/solutions/jupyter/problem-44">
+                    <span>problem-44</span>
+                </a></li>
+                
+                <li><a href="https://notebook.community/Naereen/notebooks/Merge-k-sorted-lists">
+                    <span>Merge-k-sorted-lists</span>
+                </a></li>
+                
+            </ul>
+
+            <small>
+                notebook.community |
+                <a style="text-decoration: none" href="https://notebook.community/">gallery</a> |
+                <a style="text-decoration: none" href="https://notebook.community/about">about</a>
+            </small>
+        </div>
+    </div>
+</div>
+
+</div>
+
+</body></html>
